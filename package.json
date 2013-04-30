@@ -1,0 +1,48 @@
+{ "name": "noflo-adapters"
+, "description": "Packet Format Conversion for NoFlo"
+, "keywords":
+  [ "noflo"
+  , "adapters"
+  , "conversion"
+  , "packets"
+  , "format"
+  ]
+, "author": "Kenneth Kan <kenhkan@gmail.com>"
+, "version": "0.0.1"
+, "licenses":
+  [ { "type": "MIT"
+    , "url": "https://github.com/kenhkan/noflo-adapters/blob/master/LICENSE.md"
+    }
+  ]
+, "engines":
+  { "node": ">=0.6.0"
+  }
+, "repository":
+  { "type": "git"
+  , "url": "git://github.com/kenhkan/noflo-adapters"
+  }
+, "dependencies":
+  { "noflo": "0.3.x"
+  , "underscore": "1.4.x"
+  , "underscore.string": "2.3.x"
+  , "owl-deepcopy": "0.0.x"
+  }
+, "devDependencies":
+  { "coffeelint": "*"
+  , "coffee-script": "1.6.x"
+  , "noflo-test": "https://github.com/kenhkan/noflo-test/tarball/master"
+  }
+, "noflo":
+  { "components":
+    { "PacketsToObject": "./components/PacketsToObject.coffee"
+    , "ObjectToPackets": "./components/ObjectToPackets.coffee"
+    , "PacketsToArray": "./components/PacketsToArray.coffee"
+    , "PairsToObject": "./components/PairsToObject.coffee"
+    , "ObjectToString": "./components/ObjectToString.coffee"
+    }
+  }
+, "scripts":
+  { "pretest": "./node_modules/.bin/coffeelint -r components"
+  , "test": "./node_modules/.bin/noflo-test --spec test/*.coffee"
+  }
+}
