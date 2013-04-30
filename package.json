@@ -40,6 +40,11 @@
     , "PairsToObject": "./components/PairsToObject.coffee"
     , "ObjectToString": "./components/ObjectToString.coffee"
     }
+  , "graphs":
+    { "HashToObject": "./graphs/HashToObject.fbp"
+    , "PacketsToString": "./graphs/PacketsToString.fbp"
+    , "StringToArray": "./graphs/StringToArray.fbp"
+    }
   }
 , "scripts":
   { "pretest": "./node_modules/.bin/coffeelint -r components"
