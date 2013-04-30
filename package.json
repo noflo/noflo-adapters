@@ -44,6 +44,7 @@
     { "HashToObject": "./graphs/HashToObject.fbp"
     , "PacketsToString": "./graphs/PacketsToString.fbp"
     , "StringToArray": "./graphs/StringToArray.fbp"
+    , "TupleToArray": "./graphs/TupleToArray.fbp"
     }
   }
 , "scripts":
