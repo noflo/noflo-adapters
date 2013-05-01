@@ -41,7 +41,7 @@
     , "ObjectToString": "./components/ObjectToString.coffee"
     }
   , "graphs":
-    { "HashToObject": "./graphs/HashToObject.fbp"
+    { "PropStringToObject": "./graphs/PropStringToObject.fbp"
     , "PacketsToString": "./graphs/PacketsToString.fbp"
     , "StringToArray": "./graphs/StringToArray.fbp"
     , "TupleToArray": "./graphs/TupleToArray.fbp"
