@@ -26,13 +26,13 @@ class ObjectToPackets extends noflo.Component
       @outPorts.out.disconnect()
 
   convert: (object) ->
+    if _.isArray object
+      for datum, i in object
+        @outPorts.out.send datum
+        delete object[i]
+
     for key, value of object
       @outPorts.out.beginGroup key
-
-      if _.isArray value
-        for datum, i in value
-          @outPorts.out.send datum
-          delete value[i]
 
       if _.isObject value
         @convert value
