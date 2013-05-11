@@ -1,4 +1,5 @@
 EXPORT=ARRAYIFY.IN:IN
 EXPORT=PACKETIZE.OUT:OUT
+EXPORT=DELIMITER.IN:DELIMITER
 
-',' -> DELIMITER Arrayify(adapters/StringToArray) OUT -> IN Packetize(adapters/ObjectToPackets)
+',' -> IN Delimiter(Merge) OUT -> DELIMITER Arrayify(adapters/StringToArray) OUT -> IN Packetize(adapters/ObjectToPackets)
