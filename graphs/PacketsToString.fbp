@@ -1,5 +1,7 @@
 EXPORT=ARRAYIFY.IN:IN
 EXPORT=JOIN.OUT:OUT
-EXPORT=JOIN.DELIMITER:DELIMITER
+EXPORT=DELIMITER.IN:DELIMITER
 
-Arrayify(adapters/PacketsToArray) OUT -> IN Join(objects/Join)
+Delimiter(Repeat) OUT -> IN MergeDelim(Merge)
+',' -> IN MergeDelim() OUT -> DELIMITER Join(objects/Join)
+Arrayify(adapters/PacketsToArray) OUT -> IN Join()
