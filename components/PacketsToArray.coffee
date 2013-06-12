@@ -1,5 +1,5 @@
-_ = require("underscore")
-noflo = require("noflo")
+_ = require "underscore"
+noflo = require "noflo"
 
 class PacketsToArray extends noflo.Component
 
@@ -21,7 +21,7 @@ class PacketsToArray extends noflo.Component
       @outPorts.out.beginGroup group
 
     @inPorts.in.on "data", (data) =>
-      @data[@level].push(data)
+      @data[@level].push data
 
     @inPorts.in.on "endgroup", (group) =>
       @outPorts.out.send @data[@level] unless _.isEmpty @data[@level]

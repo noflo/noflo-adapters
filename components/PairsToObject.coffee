@@ -1,6 +1,6 @@
-_ = require("underscore")
-_s = require("underscore.string")
-noflo = require("noflo")
+_ = require "underscore"
+_s = require "underscore.string"
+noflo = require "noflo"
 
 class PairsToObject extends noflo.Component
 
@@ -33,7 +33,7 @@ class PairsToObject extends noflo.Component
         @key = data
 
     @inPorts.in.on "disconnect", =>
-      @outPorts.out.send(@object)
+      @outPorts.out.send @object
       @outPorts.out.disconnect()
 
 exports.getComponent = -> new PairsToObject

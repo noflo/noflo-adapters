@@ -1,5 +1,5 @@
-noflo = require("noflo")
-_ = require("underscore")
+noflo = require "noflo"
+_ = require "underscore"
 
 class PacketsToObject extends noflo.Component
 

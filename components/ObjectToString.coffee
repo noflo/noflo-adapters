@@ -1,5 +1,5 @@
-noflo = require("noflo")
-_s = require("underscore.string")
+noflo = require "noflo"
+_s = require "underscore.string"
 
 class ObjectToString extends noflo.Component
 
@@ -21,18 +21,18 @@ class ObjectToString extends noflo.Component
     @inPorts.delim.on "data", (@delim) =>
 
     @inPorts.in.on "begingroup", (group) =>
-      @outPorts.out.beginGroup(group)
+      @outPorts.out.beginGroup group
 
     @inPorts.in.on "data", (data) =>
       str = []
 
       for key, value of data
         if Object::toString.apply(value) isnt "[object String]"
-          value = JSON.stringify(value)
+          value = JSON.stringify value
 
-        str.push("#{key}#{@assoc}#{value}")
+        str.push "#{key}#{@assoc}#{value}"
 
-      @outPorts.out.send(str.join(@delim))
+      @outPorts.out.send str.join @delim
 
     @inPorts.in.on "endgroup", (group) =>
       @outPorts.out.endGroup()
