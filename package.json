@@ -27,7 +27,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/noflo/noflo-adapters"
+    "url": "https://github.com/noflo/noflo-adapters"
   },
   "dependencies": {
     "noflo": "https://github.com/kenhkan/noflo/tarball/release",
