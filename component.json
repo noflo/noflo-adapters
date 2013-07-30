@@ -1,0 +1,35 @@
+{
+  "name": "noflo-adapters",
+  "description": "The best project ever.",
+  "author": "Kenneth Kan <kenhkan@gmail.com>",
+  "repo": "kenhkan/adapters",
+  "version": "0.1.0",
+  "keywords": [
+  ],
+  "dependencies": {
+    "noflo/noflo": "*"
+  },
+  "scripts": [
+    "index.js"
+  ],
+  "json": [
+    "component.json"
+  ],
+  "noflo": {
+    "components": {
+      "PacketsToObject": "./components/PacketsToObject.coffee",
+      "ObjectToPackets": "./components/ObjectToPackets.coffee",
+      "PacketsToArray": "./components/PacketsToArray.coffee",
+      "PairsToObject": "./components/PairsToObject.coffee",
+      "ObjectToString": "./components/ObjectToString.coffee",
+      "PropertiesToObjects": "./components/PropertiesToObjects.coffee"
+    },
+    "graphs": {
+      "PropStringToObject": "./graphs/PropStringToObject.fbp",
+      "PacketsToString": "./graphs/PacketsToString.fbp",
+      "StringToArray": "./graphs/StringToArray.fbp",
+      "TupleToArray": "./graphs/TupleToArray.fbp",
+      "TupleToPackets": "./graphs/TupleToPackets.fbp"
+    }
+  }
+}

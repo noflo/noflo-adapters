@@ -8,36 +8,46 @@
     "packets",
     "format"
   ],
-  "author": "Kenneth Kan <kenhkan@gmail.com>",
-  "contributors": [
-    {
-      "name": "Henri Bergius",
-      "email": "henri.bergius@iki.fi"
-    }
-  ],
-  "version": "0.1.0",
+  "version": "0.1.1",
+  "author": {
+    "name": "Kenneth Kan",
+    "email": "kenhkan@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/noflo/noflo-adapters.git"
+  },
   "licenses": [
     {
       "type": "MIT",
       "url": "https://github.com/noflo/noflo-adapters/blob/master/LICENSE.md"
     }
   ],
-  "engines": {
-    "node": ">=0.6.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/noflo/noflo-adapters"
-  },
   "dependencies": {
-    "noflo": "https://github.com/kenhkan/noflo/tarball/release",
+    "noflo": "~0.3.3",
     "underscore": "1.4.x",
-    "underscore.string": "2.3.x"
+    "underscore.string": "2.3.x",
+    "owl-deepcopy": "0.0.2"
   },
   "devDependencies": {
     "coffeelint": "*",
-    "coffee-script": "1.6.x",
-    "noflo-test": "https://github.com/kenhkan/noflo-test/tarball/release"
+    "grunt": "~0.4.1",
+    "grunt-contrib-coffee": "~0.6.6",
+    "grunt-coffeelint": "~0.0.6",
+    "grunt-cafe-mocha": "~0.1.2",
+    "chai": "~1.5.0",
+    "mocha": "~1.9.0",
+    "grunt-mocha-phantomjs": "~0.2.2",
+    "grunt-component-build": "~0.2.7",
+    "grunt-contrib-uglify": "~0.2.0",
+    "grunt-contrib-watch": "~0.3.1",
+    "component-json": "~0.1.4",
+    "grunt-combine": "~0.8.3",
+    "grunt-component": "~0.1.2"
+  },
+  "scripts": {
+    "pretest": "./node_modules/.bin/coffeelint  -f coffeelint_config.json -r components spec",
+    "test": "./node_modules/.bin/mocha --compilers coffee:coffee-script spec/*"
   },
   "noflo": {
     "components": {
@@ -55,9 +65,5 @@
       "TupleToArray": "./graphs/TupleToArray.fbp",
       "TupleToPackets": "./graphs/TupleToPackets.fbp"
     }
-  },
-  "scripts": {
-    "pretest": "./node_modules/.bin/coffeelint -r components",
-    "test": "./node_modules/.bin/noflo-test --spec test/*.coffee"
   }
 }
