@@ -1,15 +1,21 @@
 {
   "name": "noflo-adapters",
-  "description": "The best project ever.",
+  "description": "Packet Format Conversion for NoFlo",
   "author": "Kenneth Kan <kenhkan@gmail.com>",
-  "repo": "kenhkan/adapters",
-  "version": "0.1.0",
+  "repo": "noflo/adapters",
+  "version": "0.1.1",
   "keywords": [
   ],
   "dependencies": {
     "noflo/noflo": "*"
   },
   "scripts": [
+    "components/PacketsToObject.coffee",
+    "components/ObjectToPackets.coffee",
+    "components/PacketsToArray.coffee",
+    "components/PairsToObject.coffee",
+    "components/ObjectToString.coffee",
+    "components/PropertiesToObjects.coffee",
     "index.js"
   ],
   "json": [
