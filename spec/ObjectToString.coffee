@@ -51,7 +51,8 @@ describe 'ObjectToString component', ->
       ins.send input
       ins.disconnect()
 
-    it 'stringifies an object with configurable associator and delimiter', (done) ->
+    it 'stringifies an object with
+      configurable associator and delimiter', (done) ->
       packets = ["a=1|b=#{JSON.stringify(input.b)}"]
 
       out.on 'data', (data) ->

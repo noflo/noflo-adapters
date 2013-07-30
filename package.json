@@ -31,6 +31,7 @@
   },
   "devDependencies": {
     "coffeelint": "*",
+    "coffee-script": "1.4.x",
     "grunt": "~0.4.1",
     "grunt-contrib-coffee": "~0.6.6",
     "grunt-coffeelint": "~0.0.6",
@@ -46,8 +47,8 @@
     "grunt-component": "~0.1.2"
   },
   "scripts": {
-    "pretest": "./node_modules/.bin/coffeelint  -f coffeelint_config.json -r components spec",
-    "test": "./node_modules/.bin/mocha --compilers coffee:coffee-script spec/*"
+    "pretest": "./node_modules/.bin/coffeelint -r components/*.coffee spec/*.coffee",
+    "test": "./node_modules/.bin/mocha --compilers coffee:coffee-script spec/*.coffee"
   },
   "noflo": {
     "components": {
