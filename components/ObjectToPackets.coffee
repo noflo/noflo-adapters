@@ -21,7 +21,7 @@ class ObjectToPackets extends noflo.Component
       @outPorts.out.beginGroup group
 
     @inPorts.in.on "data", (object) =>
-      # Deep copy because conversation is destructive
+      # Deep copy because conversion is destructive
       @convert owl.deepCopy(object), @depth
 
     @inPorts.in.on "endgroup", (group) =>
