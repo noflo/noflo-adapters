@@ -8,7 +8,8 @@
   ],
   "dependencies": {
     "noflo/noflo": "*",
-    "component/underscore": "*"
+    "component/underscore": "*",
+    "djdeath/owl-deepcopy": "*"
   },
   "scripts": [
     "components/PacketsToObject.coffee",
