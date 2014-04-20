@@ -7,7 +7,9 @@
   "keywords": [
   ],
   "dependencies": {
-    "noflo/noflo": "*"
+    "noflo/noflo": "*",
+    "component/underscore": "*",
+    "djdeath/owl-deepcopy": "*"
   },
   "scripts": [
     "components/PacketsToObject.coffee",
