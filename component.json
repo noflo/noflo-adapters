@@ -7,7 +7,8 @@
   "keywords": [],
   "dependencies": {
     "noflo/noflo": "*",
-    "component/underscore": "*"
+    "component/underscore": "*",
+    "djdeath/owl-deepcopy": "*"
   },
   "scripts": [
     "components/PacketsToObject.coffee",
@@ -15,13 +16,15 @@
     "components/PairsToObject.coffee",
     "components/ObjectToString.coffee",
     "components/PropertiesToObjects.coffee",
-    "index.js"
+    "index.js",
+    "components/ObjectToPackets.coffee"
   ],
   "json": [
     "component.json"
   ],
   "noflo": {
     "components": {
+      "ObjectToPackets": "components/ObjectToPackets.coffee",
       "ObjectToString": "components/ObjectToString.coffee",
       "PacketsToArray": "components/PacketsToArray.coffee",
       "PacketsToObject": "components/PacketsToObject.coffee",
@@ -32,7 +35,8 @@
       "PacketsToString": "graphs/PacketsToString.fbp",
       "PropStringToObject": "graphs/PropStringToObject.fbp",
       "StringToArray": "graphs/StringToArray.fbp",
-      "TupleToArray": "graphs/TupleToArray.fbp"
+      "TupleToArray": "graphs/TupleToArray.fbp",
+      "TupleToPackets": "graphs/TupleToPackets.fbp"
     }
   }
 }

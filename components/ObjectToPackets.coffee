@@ -2,8 +2,6 @@ _ = require "underscore"
 noflo = require "noflo"
 owl = require "owl-deepcopy"
 
-# @runtime noflo-nodejs
-
 class ObjectToPackets extends noflo.Component
 
   description: "Convert each incoming object into grouped packets"
