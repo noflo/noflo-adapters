@@ -45,7 +45,8 @@
     "grunt-contrib-watch": "~0.3.1",
     "component-json": "~0.1.4",
     "grunt-combine": "~0.8.3",
-    "grunt-component": "~0.1.2"
+    "grunt-component": "~0.1.2",
+    "grunt-noflo-manifest": "^0.1.2"
   },
   "scripts": {
     "pretest": "./node_modules/.bin/coffeelint -r components/*.coffee spec/*.coffee",
@@ -53,19 +54,19 @@
   },
   "noflo": {
     "components": {
-      "PacketsToObject": "./components/PacketsToObject.coffee",
-      "ObjectToPackets": "./components/ObjectToPackets.coffee",
-      "PacketsToArray": "./components/PacketsToArray.coffee",
-      "PairsToObject": "./components/PairsToObject.coffee",
-      "ObjectToString": "./components/ObjectToString.coffee",
-      "PropertiesToObjects": "./components/PropertiesToObjects.coffee"
+      "ObjectToPackets": "components/ObjectToPackets.coffee",
+      "ObjectToString": "components/ObjectToString.coffee",
+      "PacketsToArray": "components/PacketsToArray.coffee",
+      "PacketsToObject": "components/PacketsToObject.coffee",
+      "PairsToObject": "components/PairsToObject.coffee",
+      "PropertiesToObjects": "components/PropertiesToObjects.coffee"
     },
     "graphs": {
-      "PropStringToObject": "./graphs/PropStringToObject.fbp",
-      "PacketsToString": "./graphs/PacketsToString.fbp",
-      "StringToArray": "./graphs/StringToArray.fbp",
-      "TupleToArray": "./graphs/TupleToArray.fbp",
-      "TupleToPackets": "./graphs/TupleToPackets.fbp"
+      "PacketsToString": "graphs/PacketsToString.fbp",
+      "PropStringToObject": "graphs/PropStringToObject.fbp",
+      "StringToArray": "graphs/StringToArray.fbp",
+      "TupleToArray": "graphs/TupleToArray.fbp",
+      "TupleToPackets": "graphs/TupleToPackets.fbp"
     }
   }
 }

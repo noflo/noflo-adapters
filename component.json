@@ -4,14 +4,13 @@
   "author": "Kenneth Kan <kenhkan@gmail.com>",
   "repo": "noflo/adapters",
   "version": "0.1.1",
-  "keywords": [
-  ],
+  "keywords": [],
   "dependencies": {
-    "noflo/noflo": "*"
+    "noflo/noflo": "*",
+    "component/underscore": "*"
   },
   "scripts": [
     "components/PacketsToObject.coffee",
-    "components/ObjectToPackets.coffee",
     "components/PacketsToArray.coffee",
     "components/PairsToObject.coffee",
     "components/ObjectToString.coffee",
@@ -23,19 +22,17 @@
   ],
   "noflo": {
     "components": {
-      "PacketsToObject": "./components/PacketsToObject.coffee",
-      "ObjectToPackets": "./components/ObjectToPackets.coffee",
-      "PacketsToArray": "./components/PacketsToArray.coffee",
-      "PairsToObject": "./components/PairsToObject.coffee",
-      "ObjectToString": "./components/ObjectToString.coffee",
-      "PropertiesToObjects": "./components/PropertiesToObjects.coffee"
+      "ObjectToString": "components/ObjectToString.coffee",
+      "PacketsToArray": "components/PacketsToArray.coffee",
+      "PacketsToObject": "components/PacketsToObject.coffee",
+      "PairsToObject": "components/PairsToObject.coffee",
+      "PropertiesToObjects": "components/PropertiesToObjects.coffee"
     },
     "graphs": {
-      "PropStringToObject": "./graphs/PropStringToObject.fbp",
-      "PacketsToString": "./graphs/PacketsToString.fbp",
-      "StringToArray": "./graphs/StringToArray.fbp",
-      "TupleToArray": "./graphs/TupleToArray.fbp",
-      "TupleToPackets": "./graphs/TupleToPackets.fbp"
+      "PacketsToString": "graphs/PacketsToString.fbp",
+      "PropStringToObject": "graphs/PropStringToObject.fbp",
+      "StringToArray": "graphs/StringToArray.fbp",
+      "TupleToArray": "graphs/TupleToArray.fbp"
     }
   }
 }
