@@ -7,10 +7,14 @@ class PairsToObject extends noflo.Component
   even numbers to be values"
 
   constructor: ->
-    @inPorts =
-      in: new noflo.Port
-    @outPorts =
-      out: new noflo.Port
+    @inPorts = new noflo.InPorts
+      in:
+        datatype: 'all'
+        description: 'Interleaved IPs representing key(odd packets) and
+         value(even packets)'
+    @outPorts = new noflo.OutPorts
+      out:
+        datatype: 'object'
 
     @inPorts.in.on "connect", =>
       @count = 0

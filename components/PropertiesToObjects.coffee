@@ -3,10 +3,12 @@ noflo = require 'noflo'
 class PropertiesToObjects extends noflo.Component
 
   constructor: ->
-    @inPorts =
-      in: new noflo.Port()
-    @outPorts =
-      out: new noflo.Port()
+    @inPorts = new noflo.InPorts
+      in:
+        datatype: 'object'
+    @outPorts = new noflo.OutPorts
+      out:
+        datatype: 'object'
 
     @inPorts.in.on 'begingroup', (group) =>
       @outPorts.out.beginGroup group

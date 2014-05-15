@@ -6,10 +6,12 @@ class PacketsToArray extends noflo.Component
   description: "Merges incoming IPs into one array"
 
   constructor: ->
-    @inPorts =
-      in: new noflo.Port
-    @outPorts =
-      out: new noflo.Port
+    @inPorts = new noflo.InPorts
+      in:
+        datatype: 'all'
+    @outPorts = new noflo.OutPorts
+      out:
+        datatype: 'array'
 
     @inPorts.in.on "connect", (group) =>
       @level = 0
