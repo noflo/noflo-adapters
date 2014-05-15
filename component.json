@@ -17,7 +17,12 @@
     "components/ObjectToString.coffee",
     "components/PropertiesToObjects.coffee",
     "index.js",
-    "components/ObjectToPackets.coffee"
+    "components/ObjectToPackets.coffee",
+    "graphs/PacketsToString.fbp",
+    "graphs/PropStringToObject.fbp",
+    "graphs/StringToArray.fbp",
+    "graphs/TupleToArray.fbp",
+    "graphs/TupleToPackets.fbp"
   ],
   "json": [
     "component.json"
@@ -38,5 +43,12 @@
       "TupleToArray": "graphs/TupleToArray.fbp",
       "TupleToPackets": "graphs/TupleToPackets.fbp"
     }
-  }
+  },
+  "fbp": [
+    "graphs/PacketsToString.fbp",
+    "graphs/PropStringToObject.fbp",
+    "graphs/StringToArray.fbp",
+    "graphs/TupleToArray.fbp",
+    "graphs/TupleToPackets.fbp"
+  ]
 }
