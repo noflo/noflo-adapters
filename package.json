@@ -46,8 +46,7 @@
     "grunt-noflo-browser": "^0.1.1"
   },
   "scripts": {
-    "pretest": "./node_modules/.bin/coffeelint -r components/*.coffee spec/*.coffee",
-    "test": "./node_modules/.bin/mocha --compilers coffee:coffee-script spec/*.coffee"
+    "test": "grunt test"
   },
   "noflo": {
     "components": {
