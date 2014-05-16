@@ -9,12 +9,19 @@ class ObjectToString extends noflo.Component
     @assoc = ":"
     @delim = ","
 
-    @inPorts =
-      in: new noflo.Port
-      assoc: new noflo.Port
-      delim: new noflo.Port
-    @outPorts =
-      out: new noflo.Port
+    @inPorts = new noflo.InPorts
+      in:
+        datatype: 'object'
+        description: 'Objects to convert'
+      assoc:
+        datatype: 'string'
+        description: 'Associating string for key/value pairs'
+      delim:
+        datatype: 'string'
+        description: 'Delimiter string between object properties'
+    @outPorts = new noflo.OutPorts
+      out:
+        datatype: 'string'
 
     @inPorts.assoc.on "data", (@assoc) =>
     @inPorts.delim.on "data", (@delim) =>

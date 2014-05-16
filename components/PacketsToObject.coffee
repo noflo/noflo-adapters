@@ -6,10 +6,12 @@ class PacketsToObject extends noflo.Component
   description: "Convert a structure of grouped packets into an object"
 
   constructor: ->
-    @inPorts =
-      in: new noflo.Port
-    @outPorts =
-      out: new noflo.Port
+    @inPorts = new noflo.InPorts
+      in:
+        datatype: 'all'
+    @outPorts = new noflo.OutPorts
+      out:
+        datatype: 'object'
 
     @inPorts.in.on "connect", =>
       @groups = []

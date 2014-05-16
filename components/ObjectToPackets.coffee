@@ -9,11 +9,19 @@ class ObjectToPackets extends noflo.Component
   constructor: ->
     @depth = Infinity
 
-    @inPorts =
-      in: new noflo.Port
-      depth: new noflo.Port
-    @outPorts =
-      out: new noflo.Port
+    @inPorts = new noflo.InPorts
+      in:
+        datatype: 'all'
+        description: 'Array/Object packets to convert'
+      depth:
+        datatype: 'int'
+        description: 'Maximum level of recursion when conversion incoming
+         object packet'
+    @outPorts = new noflo.OutPorts
+      out:
+        datatype: 'all'
+        description: 'Inner items from incoming array/objects with associated
+         keys as groups'
 
     @inPorts.depth.on "data", (@depth) =>
 
