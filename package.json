@@ -25,7 +25,7 @@
   ],
   "dependencies": {
     "noflo": "~0.5.0",
-    "underscore": "1.4.x",
+    "underscore": "1.8.3",
     "owl-deepcopy": "0.0.2"
   },
   "devDependencies": {
