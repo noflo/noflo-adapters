@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "grunt-exec": "~0.4.2",
-    "noflo-test": "~0.0.4",
+    "noflo-test": "~0.0.7",
     "coffeelint": "*",
     "coffee-script": "1.4.x",
     "grunt": "~0.4.1",
