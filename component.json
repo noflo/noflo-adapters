@@ -3,7 +3,7 @@
   "description": "Packet Format Conversion for NoFlo",
   "author": "Kenneth Kan <kenhkan@gmail.com>",
   "repo": "noflo/adapters",
-  "version": "0.1.1",
+  "version": "0.1.4",
   "keywords": [],
   "dependencies": {
     "noflo/noflo": "*",
