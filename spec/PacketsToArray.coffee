@@ -33,6 +33,7 @@ describe 'PacketsToArray component', ->
         chai.expect(data).to.eql [1, 2, 3]
         done()
 
+      ins.connect()
       ins.send 1
       ins.send 2
       ins.send 3
@@ -44,6 +45,7 @@ describe 'PacketsToArray component', ->
         chai.expect(data).to.eql [1]
         done()
 
+      ins.connect()
       ins.send 1
       ins.disconnect()
 
@@ -71,6 +73,7 @@ describe 'PacketsToArray component', ->
         chai.expect(data).to.eql [1]
         done()
 
+      ins.connect()
       ins.beginGroup 'a'
       ins.send 1
       ins.endGroup()
@@ -100,6 +103,7 @@ describe 'PacketsToArray component', ->
         chai.expect(data).to.eql [1]
         done()
 
+      ins.connect()
       ins.beginGroup 'a'
       ins.send 1
       ins.endGroup()
