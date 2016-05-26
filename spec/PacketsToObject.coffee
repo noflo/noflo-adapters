@@ -26,7 +26,6 @@ describe 'PacketsToObject component', ->
   afterEach ->
     c.outPorts.out.detach out
     out = null
-    depth.send Infinity
 
   describe 'given a tree of grouped packets', ->
     it 'it becomes an object', (done) ->
