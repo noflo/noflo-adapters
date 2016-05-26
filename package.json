@@ -17,12 +17,7 @@
     "type": "git",
     "url": "https://github.com/noflo/noflo-adapters.git"
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "https://github.com/noflo/noflo-adapters/blob/master/LICENSE.md"
-    }
-  ],
+  "license": "MIT",
   "dependencies": {
     "noflo": "~0.5.22",
     "underscore": "1.8.3",
