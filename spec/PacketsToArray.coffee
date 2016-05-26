@@ -69,9 +69,6 @@ describe 'PacketsToArray component', ->
       out.on 'disconnect', ->
         chai.expect(received).to.eql expected
         done()
-      out.on 'data', (data) ->
-        chai.expect(data).to.eql [1]
-        done()
 
       ins.connect()
       ins.beginGroup 'a'
@@ -98,9 +95,6 @@ describe 'PacketsToArray component', ->
         received.push '>'
       out.on 'disconnect', ->
         chai.expect(received).to.eql expected
-        done()
-      out.on 'data', (data) ->
-        chai.expect(data).to.eql [1]
         done()
 
       ins.connect()
