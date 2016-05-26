@@ -90,7 +90,6 @@ describe 'ObjectToPackets component', ->
         '>'
         '< e'
         'DATA {"f":[5,6]}'
-        'DATA 6'
         '>'
         '>'
       ]
