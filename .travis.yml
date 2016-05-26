@@ -1,5 +1,13 @@
 language: node_js
 node_js:
-  - "4.2"
+- '4.2'
 before_script:
-  - npm install -g grunt-cli
+- npm install -g grunt-cli
+deploy:
+  provider: npm
+  email: henri.bergius@iki.fi
+  api_key:
+    secure: CQMvY3qUVKe2AyfBCtiPWSGriRuokvGc9YAsBY1qv55FQh9+74OzZbpQv4w0/xaB7FJ8K2uzkbgFxCk8C8q6bK1iSgnrvAD+t1Yjl3goz7E26qCU4vefplyqKnVFZiv7oYZZQv1OBNiCHk2oMko4kQe3LawEJ+yBn3tkdiRyZFA=
+  on:
+    tags: true
+    repo: noflo/noflo-adapters
