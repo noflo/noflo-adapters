@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>objects in browser</title>
+    <title>adapters in browser</title>
     <link rel="stylesheet" href="../node_modules/mocha/mocha.css">
     <style type="text/css">
       #fixtures {
@@ -14,17 +14,17 @@
     <div id="mocha"></div>
     <div id="fixtures"></div>
     <script src="../browser/noflo-adapters.js"></script>
-    <script src="http://chaijs.com/chai.js"></script>
+    <script src="../node_modules/chai/chai.js"></script>
     <script src="../node_modules/mocha/mocha.js"></script>
-    <script>mocha.setup('bdd');</script>
-    <script src="PairsToObject.js"></script>
     <script>
-      if (window.mochaPhantomJS) {
-        mochaPhantomJS.run();
-      } else {
-        mocha.checkLeaks();
-        mocha.run();
+      if (window.initMochaPhantomJS) {
+        window.initMochaPhantomJS();
       }
+      mocha.setup('bdd');
+    </script>
+    <script src="./PairsToObject.js"></script>
+    <script>
+      mocha.run();
     </script>
   </body>
 </html>
