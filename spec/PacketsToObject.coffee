@@ -38,6 +38,7 @@ describe 'PacketsToObject component', ->
         chai.expect(data).to.eql expected
         done()
 
+      ins.connect()
       ins.beginGroup 'a'
       ins.send 'a'
       ins.beginGroup 'b'
