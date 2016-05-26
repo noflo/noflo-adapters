@@ -29,14 +29,12 @@ describe 'PacketsToObject component', ->
 
   describe 'given a tree of grouped packets', ->
     it 'it becomes an object', (done) ->
-      expected = []
-      expected.a = ["a"]
-      expected.a.b = ["ab1", "ab2"]
-      expected.c = ["c"]
-
       out.on 'data', (data) ->
-        console.log JSON.stringify data, null, 2
-        chai.expect(data).to.eql expected
+        chai.expect(data).to.eql
+          a:
+            '0': 'a'
+            b: ['ab1', 'ab2']
+          c: ['c']
         done()
 
       ins.connect()
