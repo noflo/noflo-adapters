@@ -8,7 +8,7 @@
     "packets",
     "format"
   ],
-  "version": "0.1.4",
+  "version": "0.1.5",
   "author": {
     "name": "Kenneth Kan",
     "email": "kenhkan@gmail.com"
@@ -19,7 +19,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "noflo": "~0.5.22",
+    "noflo": "0.x >= 0.5",
     "underscore": "~1.8.3",
     "owl-deepcopy": "~0.0.2"
   },
