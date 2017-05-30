@@ -19,6 +19,13 @@ module.exports = ->
       build:
         files:
           'browser/noflo-adapters.js': ['package.json']
+    # Generate runner.html
+    noflo_browser_mocha:
+      all:
+        options:
+          scripts: ["../browser/noflo-adapters.js"]
+        files:
+          'spec/runner.html': ['spec/*.js', '!spec/fbpspec.js']
 
     # JavaScript minification for the browser
     uglify:
@@ -67,18 +74,18 @@ module.exports = ->
 
   # Our local tasks
   @registerTask 'build', 'Build NoFlo for the chosen target platform', (target = 'all') =>
-    @task.run 'coffee'
     if target is 'all' or target is 'browser'
       @task.run 'noflo_browser'
       @task.run 'uglify'
 
   @registerTask 'test', 'Build NoFlo and run automated tests', (target = 'all') =>
     @task.run 'coffeelint'
-    @task.run 'coffee'
     if target is 'all' or target is 'nodejs'
       @task.run 'mochaTest'
     if target is 'all' or target is 'browser'
       @task.run 'noflo_browser'
+      @task.run 'coffee'
+      @task.run 'noflo_browser_mocha'
       @task.run 'mocha_phantomjs'
 
   @registerTask 'default', ['test']
