@@ -1,49 +1,39 @@
 noflo = require "noflo"
 
-class ObjectToString extends noflo.Component
-
-  description: "stringifies a simple object with configurable associator and
+exports.getComponent = ->
+  c = new noflo.Component
+  c.description = "stringifies a simple object with configurable associator and
     delimiter"
+  c.inPorts.add 'in',
+    datatype: 'object'
+    description: 'Object to convert'
+  c.inPorts.add 'assoc',
+    datatype: 'string'
+    description: 'Associating string for key/value pairs'
+    control: true
+    default: ':'
+  c.inPorts.add 'delim',
+    datatype: 'string'
+    description: 'Delimiter string between object properties'
+    control: true
+    default: ','
+  c.outPorts.add 'out',
+    datatype: 'string'
+  c.process (input, output) ->
+    return unless input.hasData 'in'
+    return if input.attached('assoc').length and not input.hasData 'assoc'
+    return if input.attached('delim').length and not input.hasData 'delim'
 
-  constructor: ->
-    @assoc = ":"
-    @delim = ","
+    assoc = if input.hasData('assoc') then input.getData('assoc') else ':'
+    delim = if input.hasData('delim') then input.getData('delim') else ','
+    data = input.getData 'in'
 
-    @inPorts = new noflo.InPorts
-      in:
-        datatype: 'object'
-        description: 'Objects to convert'
-      assoc:
-        datatype: 'string'
-        description: 'Associating string for key/value pairs'
-      delim:
-        datatype: 'string'
-        description: 'Delimiter string between object properties'
-    @outPorts = new noflo.OutPorts
-      out:
-        datatype: 'string'
+    str = []
+    for key, value of data
+      if Object::toString.apply(value) isnt "[object String]"
+        value = JSON.stringify value
 
-    @inPorts.assoc.on "data", (@assoc) =>
-    @inPorts.delim.on "data", (@delim) =>
+      str.push "#{key}#{assoc}#{value}"
 
-    @inPorts.in.on "begingroup", (group) =>
-      @outPorts.out.beginGroup group
-
-    @inPorts.in.on "data", (data) =>
-      str = []
-
-      for key, value of data
-        if Object::toString.apply(value) isnt "[object String]"
-          value = JSON.stringify value
-
-        str.push "#{key}#{@assoc}#{value}"
-
-      @outPorts.out.send str.join @delim
-
-    @inPorts.in.on "endgroup", (group) =>
-      @outPorts.out.endGroup()
-
-    @inPorts.in.on "disconnect", =>
-      @outPorts.out.disconnect()
-
-exports.getComponent = -> new ObjectToString
+    output.sendDone
+      out: str.join delim
