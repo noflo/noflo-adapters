@@ -12,19 +12,21 @@ describe 'PairsToObject component', ->
   out = null
   loader = null
 
-  before ->
-    loader = new noflo.ComponentLoader baseDir
-
-  beforeEach (done) ->
+  before (done) ->
     @timeout 4000
+    loader = new noflo.ComponentLoader baseDir
     loader.load 'adapters/PairsToObject', (err, instance) ->
       return done err if err
       c = instance
       ins = noflo.internalSocket.createSocket()
-      out = noflo.internalSocket.createSocket()
       c.inPorts.in.attach ins
-      c.outPorts.out.attach out
       done()
+  beforeEach ->
+    out = noflo.internalSocket.createSocket()
+    c.outPorts.out.attach out
+  afterEach ->
+    c.outPorts.out.detach out
+    out = null
  
   describe 'when instantiated', ->
     it 'should have an input port', ->
@@ -43,10 +45,12 @@ describe 'PairsToObject component', ->
         done()
  
       ins.connect()
+      ins.beginGroup()
       ins.send 'a'
       ins.send 1
       ins.send 'b'
       ins.send 2
+      ins.endGroup()
       ins.disconnect()
  
   describe 'given an odd number of packets', ->
@@ -60,9 +64,11 @@ describe 'PairsToObject component', ->
         done()
  
       ins.connect()
+      ins.beginGroup()
       ins.send 'a'
       ins.send 1
       ins.send 'b'
+      ins.endGroup()
       ins.disconnect()
  
   describe 'sending non-string as keys', ->
@@ -76,10 +82,12 @@ describe 'PairsToObject component', ->
         done()
  
       ins.connect()
+      ins.beginGroup()
       ins.send { a: 1 }
       ins.send 1
       ins.send 'b'
       ins.send 2
+      ins.endGroup()
       ins.disconnect()
  
   describe 'no groups please', ->

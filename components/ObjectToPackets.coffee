@@ -2,65 +2,70 @@ _ = require "underscore"
 noflo = require "noflo"
 owl = require "owl-deepcopy"
 
-class ObjectToPackets extends noflo.Component
+convert = (object, level, output) ->
+  # Deal with data packets
+  if _.isArray object
+    for datum, i in object
+      output.send
+        out: datum
+      delete object[i]
+    # Clean up after deletion
+    object = _.compact object
 
-  description: "Convert each incoming object into grouped packets"
+  # Stop if we've reached deep enough
+  if level <= 0
+    unless _.isEmpty object
+      output.send
+        out: object
+    return
 
-  constructor: ->
-    @depth = Infinity
+  # Go through the groups
+  for key, value of object
+    output.send
+      out: new noflo.IP 'openBracket', key
 
-    @inPorts = new noflo.InPorts
-      in:
-        datatype: 'all'
-        description: 'Array/Object packets to convert'
-      depth:
-        datatype: 'int'
-        description: 'Maximum level of recursion when conversion incoming
-         object packet'
-    @outPorts = new noflo.OutPorts
-      out:
-        datatype: 'all'
-        description: 'Inner items from incoming array/objects with associated
-         keys as groups'
+    if _.isObject value
+      convert value, level - 1, output
+    else
+      output.send
+        out: value
 
-    @inPorts.depth.on "data", (@depth) =>
+    output.send
+      out: new noflo.IP 'closeBracket', key
 
-    @inPorts.in.on "begingroup", (group) =>
-      @outPorts.out.beginGroup group
+exports.getComponent = ->
+  c = new noflo.Component
+  c.description = "Convert each incoming object into a stream"
+  c.inPorts.add 'in',
+    datatype: 'all'
+    description: 'Array/Object packets to convert'
+  c.inPorts.add 'depth',
+    datatype: 'int'
+    description: 'Maximum level of recursion when conversion incoming
+     object packet'
+    control: true
+  c.outPorts.add 'out',
+    datatype: 'all'
+    description: 'Inner items from incoming array/objects with associated
+     keys as groups'
+  c.process (input, output) ->
+    return unless input.hasData 'in'
+    return if input.attached('depth').length and not input.hasData 'depth'
 
-    @inPorts.in.on "data", (object) =>
-      # Deep copy because conversion is destructive
-      @convert owl.deepCopy(object), @depth
-
-    @inPorts.in.on "endgroup", (group) =>
-      @outPorts.out.endGroup()
-
-    @inPorts.in.on "disconnect", =>
-      @outPorts.out.disconnect()
-
-  convert: (object, level) ->
-    # Deal with data packets
-    if _.isArray object
-      for datum, i in object
-        @outPorts.out.send datum
-        delete object[i]
-      # Clean up after deltion
-      object = _.compact object
-
-    # Stop if we've reached deep enough
-    if level <= 0
-      @outPorts.out.send object unless _.isEmpty object
+    depth = if input.hasData('depth') then input.getData('depth') else Infinity
+    data = input.getData 'in'
+    if not _.isArray(data) and not _.isObject(data)
+      # Plain value, send as-is
+      output.sendDone
+        out: data
       return
 
-    # Go through the groups
-    for key, value of object
-      @outPorts.out.beginGroup key
-
-      if _.isObject value
-        @convert value, level - 1
-      else
-        @outPorts.out.send value
-
-      @outPorts.out.endGroup()
-
-exports.getComponent = -> new ObjectToPackets
+    # Deep copy because conversion is destructive
+    object = owl.deepCopy data
+    # Send data as a stream
+    output.send
+      out: new noflo.IP 'openBracket', null
+    convert object, depth, output
+    output.send
+      out: new noflo.IP 'closeBracket', null
+    output.done()

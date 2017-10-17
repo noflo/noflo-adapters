@@ -33,11 +33,11 @@ describe 'PacketsToArray component', ->
         chai.expect(data).to.eql [1, 2, 3]
         done()
 
-      ins.connect()
+      ins.beginGroup()
       ins.send 1
       ins.send 2
       ins.send 3
-      ins.disconnect()
+      ins.endGroup()
 
   describe 'with single IP without groups', ->
     it 'should turn it into an array', (done) ->
@@ -45,16 +45,12 @@ describe 'PacketsToArray component', ->
         chai.expect(data).to.eql [1]
         done()
 
-      ins.connect()
       ins.send 1
-      ins.disconnect()
 
   describe 'with grouped and ungrouped IPs', ->
     it 'should turn them into separate an arrays', (done) ->
       expected = [
-        '< a'
         'DATA [1]'
-        '>'
         'DATA [2]'
       ]
       received = []
@@ -67,6 +63,7 @@ describe 'PacketsToArray component', ->
       out.on 'endgroup', ->
         received.push '>'
       out.on 'disconnect', ->
+        return unless received.length is expected.length
         chai.expect(received).to.eql expected
         done()
 
@@ -78,11 +75,9 @@ describe 'PacketsToArray component', ->
       ins.disconnect()
 
   describe 'with group but without toplevel data packets', ->
-    it 'should send a grouped array', (done) ->
+    it 'should send an array', (done) ->
       expected = [
-        '< a'
         'DATA [1]'
-        '>'
       ]
       received = []
 

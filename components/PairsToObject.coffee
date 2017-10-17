@@ -1,42 +1,34 @@
-_ = require "underscore"
 noflo = require "noflo"
 
-class PairsToObject extends noflo.Component
-
-  description: "Assume packets at odd numbers to be keys and those at
+exports.getComponent = ->
+  c = new noflo.Component
+  c.description = "Assume packets at odd numbers to be keys and those at
   even numbers to be values"
-
-  constructor: ->
-    @inPorts = new noflo.InPorts
-      in:
-        datatype: 'all'
-        description: 'Interleaved IPs representing key(odd packets) and
-         value(even packets)'
-    @outPorts = new noflo.OutPorts
-      out:
-        datatype: 'object'
-
-    @inPorts.in.on "connect", =>
-      @count = 0
-      @object = {}
-      @key = null
-
-    @inPorts.in.on "data", (data) =>
-      @count++
-
+  c.inPorts.add 'in',
+    datatype: 'all'
+    description: 'Stream of IPs representing key(odd packets) and
+     value(even packets)'
+  c.outPorts.add 'out',
+    datatype: 'object'
+  c.forwardBrackets = {}
+  c.process (input, output) ->
+    return unless input.hasStream 'in'
+    stream = input.getStream('in').filter (ip) -> ip.type is 'data'
+    count = 0
+    object = {}
+    key = null
+    for packet in stream
+      count++
       # Even numbers
-      if @count % 2 is 0
+      if count % 2 is 0
         # There's a key that is a string
-        if @key?
-          @object[@key] = data
-          @key = null
-
+        if key?
+          object[key] = packet.data
+          key = null
+        continue
       # Odd numbers and a string
-      else if _.isString data
-        @key = data
-
-    @inPorts.in.on "disconnect", =>
-      @outPorts.out.send @object
-      @outPorts.out.disconnect()
-
-exports.getComponent = -> new PairsToObject
+      else if typeof packet.data is 'string'
+        key = packet.data
+        continue
+    output.sendDone
+      out: object

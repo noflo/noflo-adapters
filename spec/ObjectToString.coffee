@@ -22,8 +22,6 @@ describe 'ObjectToString component', ->
       assoc = noflo.internalSocket.createSocket()
       delim = noflo.internalSocket.createSocket()
       ins = noflo.internalSocket.createSocket()
-      c.inPorts.assoc.attach assoc
-      c.inPorts.delim.attach delim
       c.inPorts.in.attach ins
       done()
   beforeEach ->
@@ -46,6 +44,12 @@ describe 'ObjectToString component', ->
       ins.send obj
 
   describe 'Stringifying with custom associator and delimiter', ->
+    before ->
+      c.inPorts.assoc.attach assoc
+      c.inPorts.delim.attach delim
+    after ->
+      c.inPorts.assoc.detach assoc
+      c.inPorts.delim.detach delim
     it 'should become the expected string', (done) ->
       obj =
         a: 1
