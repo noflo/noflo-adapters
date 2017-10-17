@@ -50,7 +50,7 @@ exports.getComponent = ->
      keys as groups'
   c.process (input, output) ->
     return unless input.hasData 'in'
-    return if input.attached('depth') and not input.hasData 'depth'
+    return if input.attached('depth').length and not input.hasData 'depth'
 
     depth = if input.hasData('depth') then input.getData('depth') else Infinity
     data = input.getData 'in'
