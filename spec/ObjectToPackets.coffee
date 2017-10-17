@@ -29,11 +29,11 @@ describe 'ObjectToPackets component', ->
   afterEach ->
     c.outPorts.out.detach out
     out = null
-    depth.send Infinity
 
   describe 'given any object', ->
     it 'it becomes grouped packets', (done) ->
       expected = [
+        '< null'
         '< a'
         'DATA 1'
         '>'
@@ -52,6 +52,7 @@ describe 'ObjectToPackets component', ->
         '>'
         '>'
         '>'
+        '>'
       ]
       received = []
 
@@ -65,6 +66,7 @@ describe 'ObjectToPackets component', ->
         chai.expect(received).to.eql expected
         done()
 
+      depth.send Infinity
       ins.send
         a: 1
         b:
@@ -77,6 +79,7 @@ describe 'ObjectToPackets component', ->
   describe 'given a number of levels to objectify', ->
     it 'it becomes grouped packets', (done) ->
       expected = [
+        '< null'
         '< a'
         'DATA 1'
         '>'
@@ -90,6 +93,7 @@ describe 'ObjectToPackets component', ->
         '>'
         '< e'
         'DATA {"f":[5,6]}'
+        '>'
         '>'
         '>'
       ]
@@ -119,9 +123,11 @@ describe 'ObjectToPackets component', ->
   describe 'given a plain array', ->
     it 'it becomes set of packets', (done) ->
       expected = [
+        '< null'
         'DATA 1'
         'DATA 2'
         'DATA 3'
+        '>'
       ]
       received = []
 
@@ -135,5 +141,6 @@ describe 'ObjectToPackets component', ->
         chai.expect(received).to.eql expected
         done()
 
+      depth.send Infinity
       ins.send [1, 2, 3]
       ins.disconnect()
