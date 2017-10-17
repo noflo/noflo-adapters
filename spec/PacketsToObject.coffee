@@ -38,6 +38,7 @@ describe 'PacketsToObject component', ->
         done()
 
       ins.connect()
+      ins.beginGroup()
       ins.beginGroup 'a'
       ins.send 'a'
       ins.beginGroup 'b'
@@ -48,4 +49,11 @@ describe 'PacketsToObject component', ->
       ins.beginGroup 'c'
       ins.send 'c'
       ins.endGroup()
+      ins.endGroup()
       ins.disconnect()
+  describe 'given a single packet', ->
+    it 'it becomes an array', (done) ->
+      out.on 'data', (data) ->
+        chai.expect(data).to.eql ['a']
+        done()
+      ins.send 'a'
