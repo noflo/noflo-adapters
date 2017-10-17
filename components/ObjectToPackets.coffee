@@ -35,7 +35,7 @@ convert = (object, level, output) ->
 
 exports.getComponent = ->
   c = new noflo.Component
-  c.description = "Convert each incoming object into grouped packets"
+  c.description = "Convert each incoming object into a stream"
   c.inPorts.add 'in',
     datatype: 'all'
     description: 'Array/Object packets to convert'
@@ -54,10 +54,15 @@ exports.getComponent = ->
 
     depth = if input.hasData('depth') then input.getData('depth') else Infinity
     data = input.getData 'in'
+    if not _.isArray(data) and not _.isObject(data)
+      # Plain value, send as-is
+      output.sendDone
+        out: data
+      return
 
     # Deep copy because conversion is destructive
     object = owl.deepCopy data
-
+    # Send data as a stream
     output.send
       out: new noflo.IP 'openBracket', null
     convert object, depth, output

@@ -144,3 +144,23 @@ describe 'ObjectToPackets component', ->
       depth.send Infinity
       ins.send [1, 2, 3]
       ins.disconnect()
+  describe 'given a plain string', ->
+    it 'it becomes a single packet', (done) ->
+      expected = [
+        'DATA foo'
+      ]
+      received = []
+
+      out.on 'begingroup', (grp) ->
+        received.push "< #{grp}"
+      out.on 'data', (data) ->
+        received.push "DATA #{data}"
+      out.on 'endgroup', ->
+        received.push '>'
+      out.on 'disconnect', ->
+        chai.expect(received).to.eql expected
+        done()
+
+      depth.send Infinity
+      ins.send 'foo'
+      ins.disconnect()
