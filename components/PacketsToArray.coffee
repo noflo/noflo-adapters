@@ -1,37 +1,31 @@
-_ = require "underscore"
 noflo = require "noflo"
 
-class PacketsToArray extends noflo.Component
-
-  description: "Merges incoming IPs into one array"
-
-  constructor: ->
-    @inPorts = new noflo.InPorts
-      in:
-        datatype: 'all'
-    @outPorts = new noflo.OutPorts
-      out:
-        datatype: 'array'
-
-    @inPorts.in.on "connect", (group) =>
-      @level = 0
-      @data = [[]]
-
-    @inPorts.in.on "begingroup", (group) =>
-      @level++
-      @data[@level] = []
-      @outPorts.out.beginGroup group
-
-    @inPorts.in.on "data", (data) =>
-      @data[@level].push data
-
-    @inPorts.in.on "endgroup", (group) =>
-      @outPorts.out.send @data[@level] unless _.isEmpty @data[@level]
-      @level--
-      @outPorts.out.endGroup()
-
-    @inPorts.in.on "disconnect", =>
-      @outPorts.out.send @data[0] unless _.isEmpty @data[0]
-      @outPorts.out.disconnect()
-
-exports.getComponent = -> new PacketsToArray
+exports.getComponent = ->
+  c = new noflo.Component
+  c.description = "Merges incoming IPs stream into one array"
+  c.inPorts.add 'in',
+    datatype: 'all'
+  c.outPorts.add 'out',
+    datatype: 'array'
+  c.forwardBrackets = {}
+  c.process (input, output) ->
+    return unless input.hasStream 'in'
+    stream = input.getStream 'in'
+    level = 0
+    data = []
+    current = data
+    for packet in stream
+      if packet.type is 'openBracket'
+        current = []
+        level++
+      if packet.type is 'data'
+        current.push packet.data
+        continue
+      if packet.type is 'closeBracket'
+        data.push current
+        level--
+    if data.length is 1 and Array.isArray data[0]
+      output.send data[0]
+    else
+      output.send data
+    output.done()
