@@ -2,6 +2,7 @@ noflo = require "noflo"
 
 exports.getComponent = ->
   c = new noflo.Component
+  c.icon = 'compress'
   c.description = "Merges incoming IPs stream into one array"
   c.inPorts.add 'in',
     datatype: 'all'

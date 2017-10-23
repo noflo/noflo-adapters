@@ -36,6 +36,7 @@ convert = (object, level, output) ->
 exports.getComponent = ->
   c = new noflo.Component
   c.description = "Convert each incoming object into a stream"
+  c.icon = 'expand'
   c.inPorts.add 'in',
     datatype: 'all'
     description: 'Array/Object packets to convert'

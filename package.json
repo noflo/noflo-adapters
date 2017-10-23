@@ -41,5 +41,8 @@
   },
   "scripts": {
     "test": "grunt test"
+  },
+  "noflo": {
+    "icon": "plug"
   }
 }

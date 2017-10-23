@@ -28,6 +28,7 @@ exports.getComponent = -> new PacketsToObject
 
 exports.getComponent = ->
   c = new noflo.Component
+  c.icon = 'compress'
   c.description = "Convert the structure of a packet stream into an object"
   c.inPorts.add 'in',
     datatype: 'all'

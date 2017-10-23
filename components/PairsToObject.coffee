@@ -4,6 +4,7 @@ exports.getComponent = ->
   c = new noflo.Component
   c.description = "Assume packets at odd numbers to be keys and those at
   even numbers to be values"
+  c.icon = 'link'
   c.inPorts.add 'in',
     datatype: 'all'
     description: 'Stream of IPs representing key(odd packets) and

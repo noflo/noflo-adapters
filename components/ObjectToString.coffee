@@ -2,6 +2,7 @@ noflo = require "noflo"
 
 exports.getComponent = ->
   c = new noflo.Component
+  c.icon = 'font'
   c.description = "stringifies a simple object with configurable associator and
     delimiter"
   c.inPorts.add 'in',
