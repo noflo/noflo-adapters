@@ -12,6 +12,7 @@ describe 'ObjectToPackets component', ->
   depth = null
   ins = null
   out = null
+  empty = null
   before (done) ->
     @timeout 4000
     loader = new noflo.ComponentLoader baseDir
@@ -26,9 +27,13 @@ describe 'ObjectToPackets component', ->
   beforeEach ->
     out = noflo.internalSocket.createSocket()
     c.outPorts.out.attach out
+    empty = noflo.internalSocket.createSocket()
+    c.outPorts.empty.attach empty
   afterEach ->
     c.outPorts.out.detach out
     out = null
+    c.outPorts.empty.detach empty
+    empty = null
 
   describe 'given any object', ->
     it 'it becomes grouped packets', (done) ->
@@ -56,6 +61,8 @@ describe 'ObjectToPackets component', ->
       ]
       received = []
 
+      empty.on 'ip', (ip) ->
+        done new Error 'Unexpected empty received'
       out.on 'begingroup', (grp) ->
         received.push "< #{grp}"
       out.on 'data', (data) ->
@@ -99,6 +106,8 @@ describe 'ObjectToPackets component', ->
       ]
       received = []
 
+      empty.on 'ip', (ip) ->
+        done new Error 'Unexpected empty received'
       out.on 'begingroup', (grp) ->
         received.push "< #{grp}"
       out.on 'data', (data) ->
@@ -131,6 +140,8 @@ describe 'ObjectToPackets component', ->
       ]
       received = []
 
+      empty.on 'ip', (ip) ->
+        done new Error 'Unexpected empty received'
       out.on 'begingroup', (grp) ->
         received.push "< #{grp}"
       out.on 'data', (data) ->
@@ -151,6 +162,8 @@ describe 'ObjectToPackets component', ->
       ]
       received = []
 
+      empty.on 'ip', (ip) ->
+        done new Error 'Unexpected empty received'
       out.on 'begingroup', (grp) ->
         received.push "< #{grp}"
       out.on 'data', (data) ->
@@ -164,3 +177,39 @@ describe 'ObjectToPackets component', ->
       depth.send Infinity
       ins.send 'foo'
       ins.disconnect()
+
+  describe 'given an empty object', ->
+    it 'gets sent to EMPTY port', (done) ->
+      expected = [
+        'EMPTY data {}'
+      ]
+      received = []
+      out.on 'ip', (ip) ->
+        received.push "OUT #{ip.type} #{JSON.stringify(ip.data)}"
+        return unless received.length is expected.length
+        chai.expect(received).to.eql expected
+        done()
+      empty.on 'ip', (ip) ->
+        received.push "EMPTY #{ip.type} #{JSON.stringify(ip.data)}"
+        return unless received.length is expected.length
+        chai.expect(received).to.eql expected
+        done()
+      ins.send {}
+
+  describe 'given an empty array', ->
+    it 'gets sent to EMPTY port', (done) ->
+      expected = [
+        'EMPTY data []'
+      ]
+      received = []
+      out.on 'ip', (ip) ->
+        received.push "OUT #{ip.type} #{JSON.stringify(ip.data)}"
+        return unless received.length is expected.length
+        chai.expect(received).to.eql expected
+        done()
+      empty.on 'ip', (ip) ->
+        received.push "EMPTY #{ip.type} #{JSON.stringify(ip.data)}"
+        return unless received.length is expected.length
+        chai.expect(received).to.eql expected
+        done()
+      ins.send []

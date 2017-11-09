@@ -49,6 +49,9 @@ exports.getComponent = ->
     datatype: 'all'
     description: 'Inner items from incoming array/objects with associated
      keys as groups'
+  c.outPorts.add 'empty',
+    datatype: 'all'
+    description: 'When an empty object or array is received, it is sent here'
   c.process (input, output) ->
     return unless input.hasData 'in'
     return if input.attached('depth').length and not input.hasData 'depth'
@@ -59,6 +62,15 @@ exports.getComponent = ->
       # Plain value, send as-is
       output.sendDone
         out: data
+      return
+
+    if _.isArray(data) and data.length is 0
+      output.sendDone
+        empty: data
+      return
+    if _.isObject(data) and Object.keys(data).length is 0
+      output.sendDone
+        empty: data
       return
 
     # Deep copy because conversion is destructive
