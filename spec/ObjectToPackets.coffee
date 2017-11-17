@@ -181,7 +181,7 @@ describe 'ObjectToPackets component', ->
   describe 'given an empty object', ->
     it 'gets sent to EMPTY port', (done) ->
       expected = [
-        'EMPTY data {}'
+        'EMPTY data null'
       ]
       received = []
       out.on 'ip', (ip) ->
@@ -199,7 +199,7 @@ describe 'ObjectToPackets component', ->
   describe 'given an empty array', ->
     it 'gets sent to EMPTY port', (done) ->
       expected = [
-        'EMPTY data []'
+        'EMPTY data null'
       ]
       received = []
       out.on 'ip', (ip) ->
