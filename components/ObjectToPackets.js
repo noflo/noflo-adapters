@@ -1,7 +1,7 @@
 import { Component, IP } from "@noflo/noflo";
 
 /**
- * Converts each incoming object into a stream, keys becoming groups.
+ * Converts each incoming object into a stream, keys becoming brackets.
  * The conversion is destructive on a deep copy of the input.
  * @param {any} object
  * @param {number} level
@@ -27,7 +27,7 @@ const convert = (object, level, output) => {
     return;
   }
 
-  // Go through the groups
+  // Go through the brackets
   for (const key of Object.keys(subject)) {
     const value = subject[key];
     output.send({ out: new IP("openBracket", key) });
@@ -64,7 +64,7 @@ export function getComponent() {
       out: {
         datatype: "all",
         description:
-          "Inner items from incoming array/objects with associated keys as groups",
+          "Inner items from incoming array/objects with associated keys as brackets",
       },
       empty: {
         datatype: "bang",
