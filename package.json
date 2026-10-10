@@ -1,57 +1,42 @@
 {
-  "name": "noflo-adapters",
-  "description": "Packet Format Conversion for NoFlo",
+  "name": "@noflo/adapters",
+  "description": "Data adaptors for NoFlo",
+  "version": "2.0.0-alpha.1",
   "keywords": [
     "noflo",
     "adapters",
-    "conversion",
-    "packets",
-    "format"
+    "utilities"
   ],
-  "version": "0.3.2",
-  "author": {
-    "name": "Kenneth Kan",
-    "email": "kenhkan@gmail.com"
-  },
+  "author": "Henri Bergius <henri.bergius@iki.fi>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/noflo/noflo-adapters.git"
+    "url": "git+ssh://git@github.com/noflo/noflo-adapters.git"
   },
   "license": "MIT",
   "dependencies": {
-    "noflo": "^1.0.0",
-    "underscore": "~1.9.0",
-    "owl-deepcopy": "~0.0.2"
+    "@noflo/noflo": "^2.0.0-alpha.2"
   },
   "devDependencies": {
-    "chai": "^4.0.0",
-    "coffee-loader": "^0.9.0",
-    "coffeelint": "^2.1.0",
-    "coffeescript": "^2.3.2",
-    "fbp-loader": "^0.1.2",
-    "karma": "^4.0.1",
-    "karma-chai": "^0.1.0",
-    "karma-chrome-launcher": "^2.2.0",
-    "karma-mocha": "^1.3.0",
-    "karma-mocha-reporter": "^2.2.5",
-    "mocha": "^6.0.0",
-    "noflo-component-loader": "^0.3.2",
-    "noflo-runtime-headless": "^0.1.0",
-    "noflo-runtime-postmessage": "^0.10.1",
-    "noflo-webpack-config": "^1.1.0",
-    "uuid-validate": "~0.0.2",
-    "webpack": "^4.27.1",
-    "webpack-cli": "^3.1.2"
+    "@biomejs/biome": "^2.0.0",
+    "@types/node": "^24.0.0",
+    "typescript": "^5.0.0"
   },
   "scripts": {
-    "prebuild": "noflo-cache-preheat",
-    "build": "webpack --config node_modules/noflo-webpack-config/webpack.config.js",
-    "pretest": "coffeelint components/*.coffee && coffee -b -c spec/*.coffee",
-    "test:node": "mocha --exit --require node_modules/noflo-webpack-config/inject.js spec/*.js",
-    "test:browser": "karma start node_modules/noflo-webpack-config/karma.config.js",
-    "test": "npm run test:node && npm run test:browser"
+    "lint": "npx @biomejs/biome check --use-editorconfig=true components/ test/",
+    "format": "npx @biomejs/biome check --use-editorconfig=true --write components/ test/",
+    "types": "tsc -p tsconfig.json",
+    "test": "npm run types && npm run lint && npm run test:node",
+    "test:node": "node --test test/*.test.js"
   },
-  "noflo": {
-    "icon": "plug"
-  }
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "files": [
+    "components/",
+    "test/",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ]
 }
